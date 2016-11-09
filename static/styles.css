@@ -1,0 +1,70 @@
+.container
+{
+    margin-left: 270px;
+    border-left: solid 2px #000000;
+    overflow: scroll;
+}
+
+.container ul
+{
+    margin-top: 100px;
+    
+}
+
+.navbar-fixed-left
+{
+    width: 270px;
+    float: left;
+    position: fixed;
+    height: 100%;
+    background-color: #FFA749;
+    color: white;
+    border-radius: 0;
+}
+
+ul
+{
+    list-style-type: none;
+    padding: 0px;
+}
+
+.profile_label
+{
+    position: absolute;
+    font-size: 20px;
+    padding-left: 20px;
+    bottom: 20px;
+    margin-left: 0;
+    width: 269px;
+}
+
+.profile_label:hover
+{
+    background-color: #d18204;
+    cursor: pointer;
+    border-radius: 2px;
+}
+
+.restaurant
+{
+    height: 220px;
+    border-bottom: 2px dotted #515863;
+}
+
+.your_score
+{
+    float: right;
+    position: absolute;
+    right: 40px;
+    font-size: 20px;
+    z-index: -1;
+    padding-top: 15px;
+}
+
+.name
+{
+    padding: 15px;
+    z-index: -1;
+    font-size: 45px;
+}
+

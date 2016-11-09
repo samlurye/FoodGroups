@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+    <head>
+
+        <!-- documentation at http://getbootstrap.com/, alternative themes at https://www.bootstrapcdn.com/bootswatch/ -->
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"/>
+
+        <link href="{{ url_for('static', filename='styles.css') }}" rel="stylesheet"/>
+
+        <meta charset="utf-8"/>
+        <meta content="initial-scale=1, width=device-width" name="viewport"/>
+
+        <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    </head>
+
+    <body>
+
+        <div class="navbar navbar-fixed-left">
+            <ul>
+                <li style="font-size: 40px; padding: 20px">FoodGroups</li>
+                <li class="profile_label">
+                    Sign in
+                </li>
+            </ul>
+        </div>
+        <div class="container">
+            <div class="row" style="background-color: #F8F8F8; position: fixed; width: 100%">
+                <h3 style="padding: 20px; padding-top: 10px; font-size: 25px;">Restaurants Near You</h3>
+            </div>
+            <ul id="restaurant-list">
+            </ul>
+            <script>
+                /*global $*/
+                for (var i = 0; i < 10; i++) {
+                    $('#restaurant-list').append('<li class="restaurant"><span class="name">Restaurant</span><span class="your_score">Your Score:</span></li>');     
+                }
+            </script>
+        </div>
+    </body>
+
+</html>
