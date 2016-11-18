@@ -15,6 +15,8 @@
         <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
+        {{ JSGlue.include() }}
+
     </head>
 
     <body>
@@ -35,9 +37,13 @@
             </ul>
             <script>
                 /*global $*/
-                for (var i = 0; i < 10; i++) {
-                    $('#restaurant-list').append('<li class="restaurant"><span class="name">Restaurant</span><span class="your_score">Your Score:</span></li>');     
-                }
+                $.getJSON(Flask.url_for("search")).done(function(results_list) {
+                    for (var i = 0; i < 12; i++) {
+                        $('#restaurant-list').append('<li class="restaurant"><span class="name">' + 
+                            results_list[i] +
+                            '</span><span class="your_score">Your Score:</span></li>');     
+                    }    
+                })
             </script>
         </div>
     </body>
