@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+    <head>
+
+        <!-- documentation at http://getbootstrap.com/, alternative themes at https://www.bootstrapcdn.com/bootswatch/ -->
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"/>
+
+        <link href="{{ url_for('static', filename='styles.css') }}" rel="stylesheet"/>
+
+        <meta charset="utf-8"/>
+        <meta content="initial-scale=1, width=device-width" name="viewport"/>
+
+        <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+        <!-- Firebase -->
+        <script src="https://www.gstatic.com/firebasejs/3.6.1/firebase-app.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/3.6.1/firebase-auth.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/3.6.1/firebase-database.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/3.6.1/firebase.js"></script>
+        <script>
+            // Initialize Firebase
+            var config = {
+                apiKey: "AIzaSyBxrm_AcfuQCMVWCFwut4ujjKIEqoPzXwQ",
+                authDomain: "foodgroups-c09d1.firebaseapp.com",
+                databaseURL: "https://foodgroups-c09d1.firebaseio.com",
+                storageBucket: "",
+                messagingSenderId: "522334661408"
+            };
+            firebase.initializeApp(config);
+        </script>
+
+
+        <title>FoodGroups: {% block title %}{% endblock %}</title>
+
+        {{ JSGlue.include() }}
+
+        <!--Firebase Block-->
+        {% block Fire %}{% endblock %}
+
+    </head>
+
+    <body>
+        <!--Navigation Bar-->
+        <div class="navbar navbar-fixed-left">
+            <ul>
+                <li style="font-size: 40px; padding: 20px">FoodGroups</li>
+                <li class="profile_label">
+                    Sign in
+                </li>
+            </ul>
+        </div>
+
+        {% block main %}{% endblock %}
+        
+    </body>
+
+</html>
