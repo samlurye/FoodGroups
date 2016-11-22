@@ -1,0 +1,61 @@
+{% extends "layout.html" %}
+
+{% block title %}
+Survey
+{% endblock %}
+
+{% block Fire %}
+<!--<script type="text/javascript" src="helpers.js"></script>
+<script>
+function send(pref1) {
+		console.log("hi");
+		submitSurvey(pref1);
+		location.href = Flask.url_for("home");
+	}
+</script>-->
+
+
+{% endblock %}
+
+{% block main %}
+<script>
+console.log("hi");
+</script>
+<div class="container">
+	<div class="row" style="background-color: #F8F8F8; position: fixed; width: 100%">
+
+		<h3 style="padding: 20px; padding-top: 10px; font-size: 25px;">Survey</h3>
+	</div>
+
+	<form action= {{ url_for("home") }}>
+		<fieldset>
+			<div class="form-group">
+				<input class="form-control" name="pref1" id ="pref1" placeholder="Preference 1"/>
+			</div>
+			<div class="form-group">
+				<button id="pref1button" onclick="submitSurvey('hi')">Submit</button>
+			</div>
+		</fieldset>
+	</form>
+</div>
+
+<script>
+
+function submitSurvey(pref1) {
+            
+	var postData = {
+		pref1: "hippo"
+	};
+
+	var newPostKey = firebase.database().ref().child('surveys').push().key
+
+	var updates = {};
+	updates['/data/uid/' + newPostKey] = postData;
+	//updates['/user-posts/' + uid + '/' + newPostKey] = postData;
+	console.log("submitted survey to firebase");
+	return firebase.database().ref().update(updates);
+}
+var submit = document.getElementById("pref1button").onclick = submitSurvey;
+
+</script>
+{% endblock %}
