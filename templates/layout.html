@@ -1,3 +1,11 @@
+<!--
+FoodGroups
+Creators: Sam Lurye and Elizabeth Yeoh-Wang
+Date: 12/16
+
+layout.html is the layout page extended by login.html and home.html that has the navigation bar and general layout
+-->
+
 <!DOCTYPE html>
 
 <html lang="en">
@@ -15,30 +23,11 @@
         <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-        <!-- Firebase -->
-        <script src="https://www.gstatic.com/firebasejs/3.6.1/firebase-app.js"></script>
-        <script src="https://www.gstatic.com/firebasejs/3.6.1/firebase-auth.js"></script>
-        <script src="https://www.gstatic.com/firebasejs/3.6.1/firebase-database.js"></script>
-        <script src="https://www.gstatic.com/firebasejs/3.6.1/firebase.js"></script>
-        <script>
-            // Initialize Firebase
-            var config = {
-                apiKey: "AIzaSyBxrm_AcfuQCMVWCFwut4ujjKIEqoPzXwQ",
-                authDomain: "foodgroups-c09d1.firebaseapp.com",
-                databaseURL: "https://foodgroups-c09d1.firebaseio.com",
-                storageBucket: "",
-                messagingSenderId: "522334661408"
-            };
-            firebase.initializeApp(config);
-        </script>
-
+        <script src="{{ url_for('static', filename='helpers.js') }}"></script>
 
         <title>FoodGroups: {% block title %}{% endblock %}</title>
 
         {{ JSGlue.include() }}
-
-        <!--Firebase Block-->
-        {% block Fire %}{% endblock %}
 
     </head>
 
@@ -46,15 +35,19 @@
         <!--Navigation Bar-->
         <div class="navbar navbar-fixed-left">
             <ul>
-                <li style="font-size: 40px; padding: 20px">FoodGroups</li>
-                <li class="profile_label">
-                    Sign in
-                </li>
+                <a href="{{ url_for('home') }}"><li style="color: white; font-size: 40px; padding: 20px">FoodGroups</li></a>
+                {% block sidebar %}{% endblock %}
             </ul>
         </div>
-
-        {% block main %}{% endblock %}
-        
+        <div class="container">
+            <div class="row" style="background-color: #F8F8F8; position: fixed; width: 100%">
+                <h3 style="padding: 20px; padding-top: 10px; font-size: 25px;">{% block toptext %}
+                {% endblock %}</h3>
+            </div>
+            <div style="margin-top: 100px;">
+                {% block main %}{% endblock %}
+            </div>
+        </div>
     </body>
 
 </html>

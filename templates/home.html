@@ -1,51 +1,44 @@
-<!DOCTYPE html>
+<!--
+FoodGroups
+Creators: Sam Lurye and Elizabeth Yeoh-Wang
+Date: 12/16
 
-<html lang="en">
+home.html is the layout page extended by the web app pages
+-->
 
-    <head>
+{% extends "layout.html" %}
 
-        <!-- documentation at http://getbootstrap.com/, alternative themes at https://www.bootstrapcdn.com/bootswatch/ -->
-        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"/>
+{% block title %}
+Home
+{% endblock %}
 
-        <link href="{{ url_for('static', filename='styles.css') }}" rel="stylesheet"/>
+{% block toptext %}
+    Restaurants Near You
+{% endblock %}
 
-        <meta charset="utf-8"/>
-        <meta content="initial-scale=1, width=device-width" name="viewport"/>
+{% block sidebar %}
+<a href="{{ url_for('survey', scope='global') }}" class="profile_label" style="top: 120px;"><li>> Preferences</li></a>
+<a href="{{ url_for('createGroup') }}" class="profile_label" style="top: 150px;"><li>> Create Group</li></a>
+<a href="{{ url_for('joinGroup') }}" class="profile_label" style="top: 180px;"><li>> Join Group</li></a>
+<a href="{{ url_for('myGroups') }}" class="profile_label" style="top: 210px;"><li>> My Groups</li></a>
+<a href="{{ url_for('pendingOutings') }}" class="profile_label" style="top: 240px;"><li>> Pending Outings</li></a>
+<a href="{{ url_for('logout') }}" class="profile_label" style="bottom: 20px"><li>Log Out</li></a>
+{% endblock %}
 
-        <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
-        {{ JSGlue.include() }}
-
-    </head>
-
-    <body>
-
-        <div class="navbar navbar-fixed-left">
-            <ul>
-                <li style="font-size: 40px; padding: 20px">FoodGroups</li>
-                <li class="profile_label">
-                    Sign in
-                </li>
-            </ul>
-        </div>
-        <div class="container">
-            <div class="row" style="background-color: #F8F8F8; position: fixed; width: 100%">
-                <h3 style="padding: 20px; padding-top: 10px; font-size: 25px;">Restaurants Near You</h3>
-            </div>
-            <ul id="restaurant-list">
-            </ul>
-            <script>
-                /*global $*/
-                $.getJSON(Flask.url_for("search")).done(function(results_list) {
-                    for (var i = 0; i < 12; i++) {
-                        $('#restaurant-list').append('<li class="restaurant"><span class="name">' + 
-                            results_list[i] +
-                            '</span><span class="your_score">Your Score:</span></li>');     
-                    }    
-                })
-            </script>
-        </div>
-    </body>
-
-</html>
+{% block main %}
+    <ul id="restaurant-list">
+    </ul>
+    <script>
+        // Get search results from Yelp and format them (if groupname and outing are passed through Jinja, then it uses those parameters as arguments to the "search" route call)
+        /*global $*/
+        $.getJSON(Flask.url_for("search"{% if groupname and outing %}, {"groupname" : "{{ groupname }}", "outing" : "{{ outing }}"}{% endif %})).done(function(rankings) {
+            for (var i = 0; i < 12; i++) {
+                $('#restaurant-list').append('<li class="restaurant"><span class="name">' + 
+                        rankings[i][0] +
+                        '</span><span class="your_score">Score: ' +
+                        rankings[i][1] +
+                        ' </span></li>');     
+            }    
+        })
+    </script>
+{% endblock %}

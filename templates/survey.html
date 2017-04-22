@@ -1,61 +1,69 @@
-{% extends "layout.html" %}
+<!--
+FoodGroups
+Creators: Sam Lurye and Elizabeth Yeoh-Wang
+Date: 12/16
+
+survey.html is the page where the users can enter their cuisine preferences and dietary needs into a form; where "scope" is set to "global" (as opposed to a specific group), users can specify their location
+-->
+{% extends "home.html" %}
 
 {% block title %}
 Survey
 {% endblock %}
 
-{% block Fire %}
-<!--<script type="text/javascript" src="helpers.js"></script>
-<script>
-function send(pref1) {
-		console.log("hi");
-		submitSurvey(pref1);
-		location.href = Flask.url_for("home");
-	}
-</script>-->
-
-
+{% block toptext %}
+Enter Your Preferences
 {% endblock %}
 
 {% block main %}
-<script>
-console.log("hi");
-</script>
-<div class="container">
-	<div class="row" style="background-color: #F8F8F8; position: fixed; width: 100%">
-
-		<h3 style="padding: 20px; padding-top: 10px; font-size: 25px;">Survey</h3>
-	</div>
-
-	<form action= {{ url_for("home") }}>
+<form class="preference" action= "{{ url_for('survey', scope=scope) }}" method="POST">
+	<div>
 		<fieldset>
-			<div class="form-group">
-				<input class="form-control" name="pref1" id ="pref1" placeholder="Preference 1"/>
+			<h4>Cuisine<br></h4><h5>(-5 = loathe, 0 = neutral, 5 = love)</h5>
+			<table>
+				{% for cuisine in cuisines %}
+					<div class='form-group' style='width: 200px'>
+						<tr>
+							<td style='padding: 15px'>{{ cuisine }}</td>
+							<td>
+								<input step='1' class='food-type' type='number' min='-5' max='5' value=
+								{% if cuisine in prefs_set %}
+									{{ pref_dict[cuisine] }}
+								{% else %}
+									'0'
+								{% endif %}
+								 name='{{ cuisine }}' id='{{ cuisine }}'> 
+							</td>
+						</tr>
+					</div>
+				{% endfor %}
+			</table>
+
+			<h4>Dietary Restrictions</h4>
+			<table>
+				{% for rest in diet_rest %}
+					<div class='form-group' style='width: 200px'>
+						<tr>
+							<td style='padding: 15px; padding-right: 40px'>{{ rest }}</td>
+							<td><input type='checkbox' name='{{ rest }}' 
+							{% if rest in prefs_set %}
+								checked
+							{% endif %} 
+							></td>
+						</tr>
+					</div>
+				{% endfor %}
+			</table>
+			{% if scope=="global" %}
+			<h4>Location</h4>
+			<div class='form-group' style='width: 200px'>
+				<input name="location" class="form-control">
 			</div>
-			<div class="form-group">
-				<button id="pref1button" onclick="submitSurvey('hi')">Submit</button>
-			</div>
+			{% endif %}
 		</fieldset>
-	</form>
-</div>
+	</div>
+	<h3><button class="btn btn-default" type="submit">Submit</button></h3>
+</form>
 
-<script>
-
-function submitSurvey(pref1) {
-            
-	var postData = {
-		pref1: "hippo"
-	};
-
-	var newPostKey = firebase.database().ref().child('surveys').push().key
-
-	var updates = {};
-	updates['/data/uid/' + newPostKey] = postData;
-	//updates['/user-posts/' + uid + '/' + newPostKey] = postData;
-	console.log("submitted survey to firebase");
-	return firebase.database().ref().update(updates);
-}
-var submit = document.getElementById("pref1button").onclick = submitSurvey;
-
-</script>
+<script>resetFields();</script>
 {% endblock %}

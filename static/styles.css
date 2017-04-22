@@ -1,14 +1,8 @@
 .container
 {
     margin-left: 270px;
-    border-left: solid 2px #000000;
+    height: 100%;
     overflow: scroll;
-}
-
-.container ul
-{
-    margin-top: 100px;
-    
 }
 
 .navbar-fixed-left
@@ -19,6 +13,7 @@
     height: 100%;
     background-color: #FFA749;
     color: white;
+    border-right: solid 2px #000000;
     border-radius: 0;
 }
 
@@ -31,17 +26,16 @@ ul
 .profile_label
 {
     position: absolute;
+    color: white;
     font-size: 20px;
     padding-left: 20px;
-    bottom: 20px;
     margin-left: 0;
-    width: 269px;
+    width: 267px;
 }
 
 .profile_label:hover
 {
     background-color: #d18204;
-    cursor: pointer;
     border-radius: 2px;
 }
 
@@ -68,3 +62,8 @@ ul
     font-size: 45px;
 }
 
+a:hover {
+    text-decoration: none;
+    color: white;
+    cursor: pointer;
+}
